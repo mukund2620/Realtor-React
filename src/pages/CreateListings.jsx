@@ -179,7 +179,8 @@ export default function CreateListings() {
           ...formData,
           imgUrls,
           geolocation,
-          timestamp: serverTimestamp()
+          timestamp: serverTimestamp(),
+          userRef: auth.currentUser.uid
         };
         delete formDataCopy.images;
         !formDataCopy.offer && delete formDataCopy.discountedPrice;
@@ -188,7 +189,7 @@ export default function CreateListings() {
         const docRef = await addDoc(collection(db, "listings"), formDataCopy);
 
         setLoading(false)
-        toast.success("Listing created")
+        toast.success("Listing Created!")
         navigate(`/category/${formDataCopy.type}/${docRef.id}`)
     if (loading) {
       return <Spinner />;
